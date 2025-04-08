@@ -1,0 +1,19 @@
+def check_duplicate(lst):  
+    hashmap = {}  #creating an empty hashmap 
+    
+    for item in lst:  #checking each item in hashmap 
+        if item in hashmap:
+            print(f"Item found, it is duplicate. {item}")  #if duplicate is found 
+            return True 
+            
+        else:   #if item is not duplicate 
+            hashmap[item] = 1 
+            
+   # if item is not hashmap: #if item is not even found in list 
+    print("item not found") 
+    return False 
+        
+        
+#example usage:
+lst = [1,2,3,4,5,3]
+check_duplicate(lst)
