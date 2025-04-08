@@ -1,0 +1,61 @@
+class HashTable:
+    def __init__(self, size=10):
+        self.size = size
+        self.table = [[] for _ in range(self.size)]   #create a list of empty list 
+        
+         # Hash function to map a contact's name to an index
+    def _hash(self, key):
+        return hash(key) % self.size
+        
+    def insert(self, name, ph_number, address):
+        index = self._hash(name)   # Get the index using the hash function
+        # Create a contact tuple (name, phone_number, email)
+        contact = (name, ph_number, address)         # Handle collision by appending to the chain at the hashed index
+        self.table[index].append(contact) 
+        
+        
+    def search(self, name):
+        index = self._hash(name)
+        for contact in self.table[index]:
+            if contact[0] == name:
+                return contact
+        return None #return none if item is not found  
+
+    def delete(self, name): #deleting a contact by name 
+        index = self._hash(name)
+        for i, contact in enumerate(self.table[index]):
+            if contact[0] == name:
+                del self.table[index][i]
+                return True
+        return False
+            
+            
+        
+# Example usage
+ht = HashTable()
+
+# Insert contacts
+ht.insert("Alice", "123-456-7890", "alice@example.com")
+ht.insert("Bob", "987-654-3210", "bob@example.com")
+ht.insert("Charlie", "555-123-4567", "charlie@example.com")
+
+# Search for a contact
+contact = ht.search("Alice")
+if contact:
+    print("Found:", contact)
+else:
+    print("Contact not found.")
+
+# Delete a contact
+ht.delete("Charlie")
+contact = ht.search("")
+if contact:
+    print("Delete:", contact)
+else:
+    print("Contact not found.")
+
+# Output:
+# Found: ('Alice', '123-456-7890', 'alice@example.com')
+# Contact not found.
+                
+        
