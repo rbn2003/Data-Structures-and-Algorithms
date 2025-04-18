@@ -1,0 +1,32 @@
+class Course:
+    def __init__(self, department, code_number, is_Honors):
+        self.department = department
+        self.code_number = code_number
+        self.is_Honors = is_Honors
+        
+def poly_hash(txt, base=31, mod = 2048):
+    hash_val = 0
+    for char in txt:
+        hash_val = (hash_val * base + ord(char)) % mod
+    return hash_val 
+    
+def hash0(txt):
+    return sum(ord(c) for c in txt)
+    
+def course_hash(course, table_size = 2048):
+    part1 = poly_hash(course.department , mod=table_size)
+    part2 = hash0(course.department)
+    part3 = course.code_number
+    part4 = 1 if course.is_Honors else 0 
+    
+    
+    combined = (part1 + part2 + part3 + part4) % table_size
+    return combined 
+    
+c1 = Course("MATH", 101, False)
+c2 = Course("CHEM", 203, True)
+c3 = Course("BIO", 405, False)
+print("Hash:", course_hash(c1))
+print("Hash:", course_hash(c2))
+print("Hash:", course_hash(c3))
+
